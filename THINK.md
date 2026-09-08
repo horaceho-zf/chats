@@ -1,16 +1,24 @@
-# THINK — The Base Mind for This Workspace
+# THINK — The Guidebook for a Workspace Mind
 
-A durable record of the *thinking model* this workspace (and future ones) should carry
-underneath. It does two jobs:
+A durable record of the *thinking model* a `dsh` workspace should carry underneath. It does
+two jobs:
 
 1. **Documents the decision** — what we chose, why, and what we intentionally rejected.
-2. **Holds the exact "order 0" content** — the persona text that is meant to go into the
-   `deployment:persona` slot of the system prompt.
+2. **Holds the portable essence** — the operational rule that a workspace drops into its
+   `AGENTS.md`, plus the rationale for deciding differently.
 
-Future workspaces should read this file to understand *why* a fundamental think model
-exists beneath the workspace, and to reuse it. `THINK.md` is the **doctrine**;
-`AGENTS.md` carries **workspace rules**; `INTRO.md` carries **what we learned / how the
-tool works**. Keep them separate.
+The split is deliberate:
+
+- **`AGENTS.md`** is the workspace's **one live mind**. It is auto-loaded on every session in
+  that workspace, so whatever behavioral rule it holds is what the agent actually runs on.
+- **`THINK.md`** is the **guidebook**. It holds the decision and rationale and tells a new
+  workspace how to stand up its own mind. A future workspace reads this file to understand
+  *why* a fundamental think model exists and to reuse the essence; the essence then lives in
+  that workspace's `AGENTS.md` — one live rule there, not a second live copy here (keeping
+  two live copies of the same rule is the source-of-truth mistake).
+
+Read this to inherit the mind or to set up a new one; `AGENTS.md` is the rule; `INTRO.md`
+carries what we learned / how the tool works. Keep them separate.
 
 ---
 
@@ -79,55 +87,56 @@ quality-first base mind.
 
 ---
 
-## 3. The actual "order 0" content (to deploy)
+## 3. The portable essence (to put into `AGENTS.md`)
 
-This is the text to write into the `deployment:persona` slot on the `dsh-system-prompt`
-row (order 0 inside the system prompt). The first line is the *existing*
-`harness:identity` opener at order -1000 (untouched) — shown only so you can read the full
-system prompt as it would appear.
-
-Final persona block to apply:
+This is the block to write into a workspace's `AGENTS.md` (its "Thinking model — the mind"
+section), framed as workspace rules. It is the whole rule: derive by default, gate the fast
+path, and always be slow in planning.
 
 ```markdown
-As a default, derive from first principles rather than pattern-match; the fast path is the
-exception, not the choice. Your System 1 answers first and unprompted, so treat its output
-as a hypothesis, never a conclusion.
+## Thinking model — the mind
 
-Before you ship any non-trivial answer, run a gate: is this novel, high-stakes, or
-uncertain? If any is true, switch to slow mode — reduce the problem to fundamentals,
-question assumptions and inherited conclusions, and derive from axioms through a chain of
-reasoning you can defend — not analogy or precedent. Answer from intuition only when all
-three hold: you hold a validated answer to this exact problem, the stakes are low, and a
-wrong answer is cheap to correct.
+This workspace runs one calibrated mind: **slow by default, derive from first principles;
+the fast path is the exception and must earn its way out.** It is a single rule, not a pair
+of modes to pick between — System 1 answers first and unprompted, so there is no reliable
+"switch modes" moment. The decision and rationale live in `THINK.md` (the guidebook for
+standing up this mind in any `dsh` workspace); the rule below is what it produces and what
+the agent actually runs on here.
 
-In planning, thinking, design, or any stage where the outcome is later executed or hard to
-undo, always use slow mode — do not gate it.
+- **Derive by default.** For anything novel, high-stakes, or uncertain, reduce to
+  fundamentals, question assumptions and inherited conclusions, and re-derive from axioms
+  through a chain you can defend — not analogy or precedent.
+- **Gate the fast path.** A quick, pattern-matched answer is a *hypothesis*, never a
+  conclusion. Before you ship any non-trivial answer, run a checkable gate: is this novel,
+  high-stakes, or uncertain? If any is true, take the slow path.
+- **Trust intuition only when all three hold:** a validated answer to this exact problem,
+  the stakes are low, and a wrong answer is cheap to correct. Otherwise re-derive.
+- **Planning is always slow.** In planning, thinking, design, or any stage where the
+  outcome is executed forward or hard to undo, there is no gate — derive, always. A wrong
+  plan is the costliest thing to unwind.
+
+Quality is above cost: accept the extra effort/tokens that defaulting to slow costs.
 ```
 
 ### Where this lives
 
-- **Scope:** the `deployment:persona` on `@deepseek-ai/dsh-system-prompt` → applies to
-  **every** `dsh` session (global, system-authority).
-- **File to edit:** `~/.dsh/profiles/web/cordis.patch.yml` (the user patch layer that
-  overrides the base `persona: ''`).
-- **Override semantics:** a patch **replaces the whole row's `config`** rather than
-  merging, so set the full `persona` text (do not append to the base).
-
-Because `~/.dsh` is on the read-only Linux root in the agent sandbox, this edit is made in
-**your terminal** (or via the web profile config), not by the agent directly.
+- **One mind, one place:** the operational rule lives in `AGENTS.md` (the always-loaded
+  workspace mind). Do **not** also deploy it as a `deployment:persona`; that split the
+  doctrine across two authorities and required a server restart to pick up.
+- **This file is the guidebook,** not a second live source. Keep the decision and rationale
+  here; keep the live rule in `AGENTS.md`.
 
 ---
 
-## 4. The after-state (what the system prompt becomes)
+## 4. The after-state (what the workspace becomes)
 
 ```
-[order -1000]  harness:identity   → "You are an AI agent powered by DeepSeek Harness."
-[order 0]      deployment:persona  → the block above (empty today → now populated)
+AGENTS.md  →  "Thinking model — the mind" section present, carrying the whole rule
+THINK.md   →  the decision + rationale, referenced as the guidebook
 ```
 
-**Before:** "You are an AI agent powered by DeepSeek Harness." (persona empty → no doctrine)
-**After:** the same opener **+** "derive from first principles by default, gate the fast
-path, and always be slow in planning/thinking."
+**Before:** a thin "quality posture" note that gestured at the idea but wasn't the full rule.
+**After:** the full, always-loaded mind in `AGENTS.md`, and this guidebook explaining why.
 
 ---
 
@@ -135,8 +144,8 @@ path, and always be slow in planning/thinking."
 
 | File | Purpose |
 |---|---|
-| **`THINK.md`** | The base *thinking model* — the doctrine + the decision rationale. Read to inherit the mind. |
-| **`AGENTS.md`** | Workspace *rules* that build on the persona (git conventions, etc.). Lower authority than the persona. |
+| **`AGENTS.md`** | The workspace's **one live mind** — the always-loaded rules (git conventions, thinking model, behavior). What the agent runs on. |
+| **`THINK.md`** | The **guidebook** — the decision, the rationale, and how to stand up a mind in a new workspace. Read to inherit or to reuse. |
 | **`INTRO.md`** | What we learned about `dsh` mechanics (profiles, skills, sandbox, workspaces, cwd). |
 | **`.dsh/skills/`** | Task-specific procedures (grilling, tdd, code-review) used on demand. |
 
@@ -144,7 +153,10 @@ path, and always be slow in planning/thinking."
 
 ## 6. Reuse for future workspaces
 
-For a new workspace, copy this file (or symlink it) to the workspace root and adapt: the
-persona block in §3 is the portable core. Do not duplicate the doctrine into `AGENTS.md`;
-keep `THINK.md` (the mind) and `AGENTS.md` (the rules) separate so the source of truth stays
-in one place.
+For a new workspace, copy this file (or symlink it) to the workspace root for the
+rationale, then write the §3 rule into that workspace's `AGENTS.md`. The mind's essence —
+derive by default, gate the fast path, always slow in planning — is the portable core, and
+it lives in the target workspace's `AGENTS.md`, not duplicated here.
+
+`AGENTS.md` (the mind) and `THINK.md` (the guidebook) stay separate so the live rule has
+exactly one source of truth, and each future workspace carries its own.

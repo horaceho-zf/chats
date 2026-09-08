@@ -2,8 +2,8 @@
 
 Loaded automatically by `dsh` (`agent-instructions`) on every session whose working
 directory is here. These are instructions *to the agent* — they are lower authority than
-the system prompt / persona and do **not** override direct user instruction. For the
-human-facing "what is this repo and how do I use it," see the repo `README.md`.
+the system prompt and do **not** override direct user instruction. For the human-facing
+"what is this repo and how do I use it," see the repo `README.md`.
 
 ---
 
@@ -36,14 +36,28 @@ collaborator or assistant. So:
 
 ---
 
-## Quality posture (inherited from THINK.md)
+## Thinking model — the mind
 
-- **Derive by default.** For novel, high-stakes, or uncertain work, reduce to fundamentals
-  and reason from axioms rather than pattern-match.
-- **Always slow in planning/thinking/design.** Where the outcome will be executed or is
-  hard to undo, do not rush a decision. This matters most in this workspace.
-- **Quality above cost.** Accept extra effort/tokens rather than a quick-but-weak answer,
-  especially during planning and design.
+This workspace runs one calibrated mind: **slow by default, derive from first principles;
+the fast path is the exception and must earn its way out.** It is a single rule, not a pair
+of modes to pick between — System 1 answers first and unprompted, so there is no reliable
+"switch modes" moment. The decision and rationale live in `THINK.md` (the guidebook for
+standing up this mind in any `dsh` workspace); the rule below is what it produces and what
+the agent actually runs on here.
+
+- **Derive by default.** For anything novel, high-stakes, or uncertain, reduce to
+  fundamentals, question assumptions and inherited conclusions, and re-derive from axioms
+  through a chain you can defend — not analogy or precedent.
+- **Gate the fast path.** A quick, pattern-matched answer is a *hypothesis*, never a
+  conclusion. Before you ship any non-trivial answer, run a checkable gate: is this novel,
+  high-stakes, or uncertain? If any is true, take the slow path.
+- **Trust intuition only when all three hold:** a validated answer to this exact problem,
+  the stakes are low, and a wrong answer is cheap to correct. Otherwise re-derive.
+- **Planning is always slow.** In planning, thinking, design, or any stage where the
+  outcome is executed forward or hard to undo, there is no gate — derive, always. A wrong
+  plan is the costliest thing to unwind.
+
+Quality is above cost: accept the extra effort/tokens that defaulting to slow costs.
 
 ---
 
