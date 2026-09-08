@@ -30,6 +30,13 @@ prompt variables (e.g. `{{model}}`, `{{cwd}}`).
 
 ## 2. The replacement content (copy this exactly)
 
+> **Why there is no `order:` key here.** The section order (order 0 for
+> `deployment:persona`, order -1000 for `harness:identity`) is **assigned by the harness
+> from the section name**, not configured by you. It is not a valid config key on the
+> `system-prompt` row: the only field you supply is `config.persona`. The `[order ...]`
+> markers in §1 are a *diagram*, not fields to paste. Leave them out — the harness handles
+> ordering automatically.
+
 ```yaml
 # Your patch layer for this dsh profile, applied after every bundle layer:
 # a top-level YAML array of loader patch entries (id-targeted config

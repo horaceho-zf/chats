@@ -90,10 +90,10 @@ go slow — never gate that. Full rationale and wording in [`THINK.md`](THINK.md
 
 ## Getting started with the remote
 
-This repo is intended to live at `git@github.com:zungfu/chats.git`. From a fresh clone:
+This repo lives at `git@github.com:horaceho-zf/chats.git`. From a fresh clone:
 
 ```bash
-git clone git@github.com:zungfu/chats.git
+git clone git@github.com:horaceho-zf/chats.git
 ```
 
 Then open `dsh` with this directory as the workspace and follow `README.md`.
